@@ -73,7 +73,7 @@ object DataClassGenerator {
         return classBody
     }
 
-    private fun generateInterfaceImplementationString(): String = ": Serializable"
+    private fun generateInterfaceImplementationString(): String = " : Serializable"
 
     private fun generateDataClassDoc(name: String, valueAmount: Int): String {
         var toReturn = ""
