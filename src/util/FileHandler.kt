@@ -21,7 +21,7 @@ object FileHandler {
         val file = File(completeFilePath)
 
         // Create file. If already exists -> try again with suffix.
-        if (!file.createNewFile()) return generateOutputFile(fileDir, "$fileName (2)", content)
+        if (!file.createNewFile()) return generateOutputFile(content, fileDir, "$fileName (2)", fileExtension)
 
         println("Writing content to $completeFilePath")
         file.writeText(content)
