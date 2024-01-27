@@ -1,6 +1,5 @@
-package generation
+package util
 
-import util.Config
 import java.io.File
 
 object FileHandler {
