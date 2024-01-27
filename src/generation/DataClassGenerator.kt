@@ -52,7 +52,7 @@ object DataClassGenerator {
     }
 
     private fun generateDataClassBody(name: String, valueAmount: Int): String {
-        var classBody = "{\n\n"
+        var classBody = " {\n\n"
 
         classBody += """ 
         /**
@@ -69,7 +69,7 @@ object DataClassGenerator {
         }
 
         classBody = classBody.removeSuffix(", ")
-        classBody += ")\"\n}"
+        classBody += ")\"\n}\n"
         return classBody
     }
 
