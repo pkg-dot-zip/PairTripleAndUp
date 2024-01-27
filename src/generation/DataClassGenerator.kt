@@ -1,7 +1,16 @@
 package generation
 
+import util.Config
+
 object DataClassGenerator {
-    fun generateDataClassString(name: String, valueAmount: Int, generateDoc: Boolean = true): String {
+    fun generateDataClassString(
+        name: String,
+        valueAmount: Int,
+        generateDoc: Boolean = true,
+        generateToString: Boolean = true,
+        generateToList: Boolean = true,
+        implementInterface: Boolean = true
+    ): String {
         var toReturn = ""
 
         // Add docs.
@@ -17,13 +26,19 @@ object DataClassGenerator {
         toReturn += name.replaceFirstChar { it.uppercase() }
         toReturn += parametersString
         toReturn += valuesString
-        toReturn += interfaceString
+        if (implementInterface) toReturn += interfaceString
 
         // Give body and implement to String, including toString doc.
-        toReturn += generateDataClassBody(name, valueAmount, generateDoc)
+        if (generateToString) toReturn += generateDataClassBody(name, valueAmount, generateDoc)
 
         // Outside the body, we create the toList() extension method.
-        toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount, generateDoc)
+        if (generateToList) {
+            toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(
+                name,
+                valueAmount,
+                generateDoc
+            )
+        }
 
         return toReturn
     }

@@ -21,11 +21,20 @@ fun main() {
     // Generate file content.
     var outputString = ""
 
-    outputString += ImportGenerator.generateImportString()
-    outputString += "\n\n\n"
+    if (Config.GENERATE_IMPORT) {
+        outputString += ImportGenerator.generateImportString()
+        outputString += "\n\n\n"
+    }
 
     for ((name, valueAmount) in map) {
-        outputString += DataClassGenerator.generateDataClassString(name, valueAmount, Config.GENERATE_DOC)
+        outputString += DataClassGenerator.generateDataClassString(
+            name,
+            valueAmount,
+            Config.GENERATE_DOC,
+            Config.GENERATE_TOSTRING,
+            Config.GENERATE_TOLIST,
+            Config.IMPLEMENT_INTERFACE
+        )
         outputString += "\n"
     }
 

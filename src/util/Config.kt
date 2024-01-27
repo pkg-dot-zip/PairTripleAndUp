@@ -5,6 +5,10 @@ object Config {
     const val FILE_NAME = "HorrorOutput"
     const val FILE_EXTENSION = ".kt"
     const val GENERATE_DOC = false
+    const val GENERATE_TOSTRING = false
+    const val GENERATE_TOLIST = false
+    const val GENERATE_IMPORT = true
+    const val IMPLEMENT_INTERFACE = true
 
     fun getMapOfTerror(): Map<String, Int> = map
 
