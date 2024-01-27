@@ -12,7 +12,11 @@ object DataClassGenerator {
         val valuesString = generateValuesString(valueAmount)
         val interfaceString = generateInterfaceImplementationString()
 
-        toReturn += "public data class ${name.replaceFirstChar { it.uppercase() }}${parametersString}${valuesString}$interfaceString"
+        toReturn += "public data class "
+        toReturn += name.replaceFirstChar { it.uppercase() }
+        toReturn += parametersString
+        toReturn += valuesString
+        toReturn += interfaceString
 
         // Give body and implement to String, including toString doc.
         toReturn += generateDataClassBody(name, valueAmount)
@@ -27,10 +31,10 @@ object DataClassGenerator {
         var paramString = "<"
 
         for (i in 1..<valueAmount + 1) {
-            paramString += "out A$i,"
+            paramString += "out A$i, "
         }
 
-        paramString = paramString.removeSuffix(",")
+        paramString = paramString.removeSuffix(", ")
         paramString += ">"
         return paramString
     }
