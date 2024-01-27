@@ -8,6 +8,22 @@ object DataClassGenerator {
         toReturn += generateDataClassDoc(name, valueAmount)
 
         // Add the dataclass
+        val parametersString = generateParametersString(valueAmount)
+        val valuesString = generateValuesString(valueAmount)
+        val interfaceString = generateInterfaceImplementationString()
+
+        toReturn += "public data class ${name.replaceFirstChar { it.uppercase() }}${parametersString}${valuesString}$interfaceString"
+
+        // Give body and implement to String, including toString doc.
+        toReturn += generateDataClassBody(name, valueAmount)
+
+        // Outside the body, we create the toList() extension method.
+        toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount)
+
+        return toReturn
+    }
+
+    private fun generateParametersString(valueAmount: Int): String {
         var paramString = "<"
 
         for (i in 1..<valueAmount + 1) {
@@ -16,45 +32,44 @@ object DataClassGenerator {
 
         paramString = paramString.removeSuffix(",")
         paramString += ">"
+        return paramString
+    }
 
+    private fun generateValuesString(valueAmount: Int): String {
         var valsString = "(\n"
 
         for (i in 1..<valueAmount + 1) {
-            paramString += "public val value$i: A$i,\n"
+            valsString += "public val value$i: A$i,\n"
         }
 
         valsString = valsString.removeSuffix(",\n")
         valsString += "\n)"
+        return valsString
+    }
 
-        val interfaceString = " : Serializable "
+    private fun generateDataClassBody(name: String, valueAmount: Int): String {
+        var classBody = "{\n\n"
 
-        toReturn += "public data class ${name.replaceFirstChar { it.uppercase() }}$paramString$valsString$interfaceString"
-
-        // Give body and implement to String, including toString doc.
-        toReturn += "{\n\n"
-
-        toReturn += """ 
+        classBody += """ 
         /**
         * Returns string representation of the [${name.replaceFirstChar { it.uppercase() }}] including its values.
         */
         """.trimIndent()
 
-        toReturn += "\n"
+        classBody += "\n"
 
-        toReturn += "public override fun toString(): String = \"("
+        classBody += "public override fun toString(): String = \"("
 
         for (i in 1..<valueAmount + 1) {
-            toReturn += "\$value$i, "
+            classBody += "\$value$i, "
         }
 
-        toReturn = toReturn.removeSuffix(", ")
-        toReturn += ")\"\n}"
-
-        // Outside the body, we create the toList() extension method.
-        toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount)
-
-        return toReturn
+        classBody = classBody.removeSuffix(", ")
+        classBody += ")\"\n}"
+        return classBody
     }
+
+    private fun generateInterfaceImplementationString(): String = ": Serializable"
 
     private fun generateDataClassDoc(name: String, valueAmount: Int): String {
         var toReturn = ""
