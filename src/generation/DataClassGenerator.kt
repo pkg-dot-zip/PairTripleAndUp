@@ -94,14 +94,13 @@ object DataClassGenerator {
             """.trimIndent() + "\n"
         }
 
-        toReturn += docBase
-
         for (i in 1..<valueAmount) {
             toReturn += """
             * @property value$i The $i value.
-            """.trimIndent() + "\n*/\n"
+            """.trimIndent() + "\n"
         }
 
+        toReturn += "*/\n"
         return toReturn
     }
 }
