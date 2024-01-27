@@ -79,7 +79,7 @@ object DataClassGenerator {
         var toReturn = ""
         val docBase = """
          /**
-         * Represents $valueAmount of values
+         * Represents $valueAmount values
          *
          * There is no meaning attached to values in this class, it can be used for any purpose.
          * ${name.replaceFirstChar { it.uppercase() }} exhibits value semantics, i.e. two ${name + 's'} are equal if all $valueAmount components are equal.
