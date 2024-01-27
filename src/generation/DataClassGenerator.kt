@@ -12,7 +12,7 @@ object DataClassGenerator {
         val valuesString = generateValuesString(valueAmount)
         val interfaceString = generateInterfaceImplementationString()
 
-        toReturn += "public data class "
+        toReturn += "data class "
         toReturn += name.replaceFirstChar { it.uppercase() }
         toReturn += parametersString
         toReturn += valuesString
@@ -43,7 +43,7 @@ object DataClassGenerator {
         var valsString = "(\n"
 
         for (i in 1..<valueAmount + 1) {
-            valsString += "public val value$i: A$i,\n"
+            valsString += "val value$i: A$i,\n"
         }
 
         valsString = valsString.removeSuffix(",\n")
@@ -62,7 +62,7 @@ object DataClassGenerator {
 
         classBody += "\n"
 
-        classBody += "public override fun toString(): String = \"("
+        classBody += "override fun toString(): String = \"("
 
         for (i in 1..<valueAmount + 1) {
             classBody += "\$value$i, "
