@@ -1,7 +1,7 @@
 package generation
 
 object ExtensionMethodGenerator {
-    fun generateToListExtensionMethodString(name: String, valueAmount: Int): String {
+    fun generateToListExtensionMethodString(name: String, valueAmount: Int, generateDoc: Boolean = true): String {
         var toReturn = ""
 
         val docBase = """ 
@@ -10,7 +10,7 @@ object ExtensionMethodGenerator {
         */
         """.trimIndent()
 
-        toReturn += "$docBase\n"
+        if (generateDoc) toReturn += "$docBase\n"
 
         var genericString = "<"
         for (i in 0..<valueAmount) {

@@ -25,7 +25,7 @@ fun main() {
     outputString += "\n\n\n"
 
     for ((name, valueAmount) in map) {
-        outputString += DataClassGenerator.generateDataClassString(name, valueAmount)
+        outputString += DataClassGenerator.generateDataClassString(name, valueAmount, Config.GENERATE_DOC)
         outputString += "\n"
     }
 

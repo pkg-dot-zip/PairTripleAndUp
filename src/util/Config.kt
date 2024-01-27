@@ -4,6 +4,7 @@ object Config {
     const val OUTPUT_FOLDER = "HorrorDir"
     const val FILE_NAME = "HorrorOutput"
     const val FILE_EXTENSION = ".kt"
+    const val GENERATE_DOC = false
 
     fun getMapOfTerror(): Map<String, Int> = map
 

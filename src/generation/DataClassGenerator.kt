@@ -1,11 +1,12 @@
 package generation
 
 object DataClassGenerator {
-    fun generateDataClassString(name: String, valueAmount: Int): String {
+    fun generateDataClassString(name: String, valueAmount: Int, generateDoc: Boolean = true): String {
         var toReturn = ""
 
         // Add docs.
-        toReturn += generateDataClassDoc(name, valueAmount)
+        if (generateDoc) toReturn += generateDataClassDoc(name, valueAmount)
+
 
         // Add the dataclass
         val parametersString = generateParametersString(valueAmount)
@@ -19,10 +20,10 @@ object DataClassGenerator {
         toReturn += interfaceString
 
         // Give body and implement to String, including toString doc.
-        toReturn += generateDataClassBody(name, valueAmount)
+        toReturn += generateDataClassBody(name, valueAmount, generateDoc)
 
         // Outside the body, we create the toList() extension method.
-        toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount)
+        toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount, generateDoc)
 
         return toReturn
     }
@@ -51,14 +52,16 @@ object DataClassGenerator {
         return valsString
     }
 
-    private fun generateDataClassBody(name: String, valueAmount: Int): String {
+    private fun generateDataClassBody(name: String, valueAmount: Int, generateDoc: Boolean = true): String {
         var classBody = " {\n\n"
 
-        classBody += """ 
-        /**
-        * Returns string representation of the [${name.replaceFirstChar { it.uppercase() }}] including its values.
-        */
-        """.trimIndent()
+        if (generateDoc) {
+            classBody += """ 
+            /**
+            * Returns string representation of the [${name.replaceFirstChar { it.uppercase() }}] including its values.
+            */
+            """.trimIndent()
+        }
 
         classBody += "\n"
 
