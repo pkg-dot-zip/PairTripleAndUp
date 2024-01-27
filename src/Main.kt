@@ -25,7 +25,7 @@ fun main() {
     }
 
     // Write file.
-    FileHandler.generateOutputFile(Config.OUTPUT_FOLDER, Config.FILE_NAME, outputString)
+    FileHandler.generateOutputFile(outputString)
 
     // End
     println("Exiting program.")

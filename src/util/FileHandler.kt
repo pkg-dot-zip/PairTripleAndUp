@@ -3,7 +3,13 @@ package util
 import java.io.File
 
 object FileHandler {
-    fun generateOutputFile(fileDir: String, fileName: String, content: String): Boolean {
+
+    fun generateOutputFile(
+        content: String,
+        fileDir: String = Config.OUTPUT_FOLDER,
+        fileName: String = Config.FILE_NAME,
+        fileExtension: String = Config.FILE_EXTENSION
+    ): Boolean {
         // First handle folder.
         val canGetFolder = dirExistsOrWasCreated(fileDir)
         if (!canGetFolder) {
@@ -11,7 +17,7 @@ object FileHandler {
             return false
         }
 
-        val completeFilePath = fileDir + "/" + fileName + Config.FILE_EXTENSION
+        val completeFilePath = "$fileDir/$fileName$fileExtension"
         val file = File(completeFilePath)
 
         // Create file. If already exists -> try again with suffix.
