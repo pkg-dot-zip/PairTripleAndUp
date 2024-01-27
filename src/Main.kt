@@ -1,4 +1,5 @@
 import generation.DataClassGenerator
+import generation.ImportGenerator
 import util.Config
 import util.FileHandler
 
@@ -19,6 +20,10 @@ fun main() {
 
     // Generate file content.
     var outputString = ""
+
+    outputString += ImportGenerator.generateImportString()
+    outputString += "\n\n\n"
+
     for ((name, valueAmount) in map) {
         outputString += DataClassGenerator.generateDataClassString(name, valueAmount)
         outputString += "\n"
@@ -34,6 +39,5 @@ fun main() {
 /**
  *  Checks if no duplicates.
  */
-private fun isValidTupleMap(map: Map<String, Int>): Boolean {
-    return map.values.groupingBy { it }.eachCount().any { it.value > 1 }
-}
+private fun isValidTupleMap(map: Map<String, Int>): Boolean =
+    map.values.groupingBy { it }.eachCount().any { it.value > 1 }
