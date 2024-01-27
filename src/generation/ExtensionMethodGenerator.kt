@@ -26,7 +26,7 @@ object ExtensionMethodGenerator {
 
         valueString = valueString.removeSuffix(", ")
 
-        toReturn += "public fun <T> Triple$genericString.toList(): List<T> = listOf($valueString)"
+        toReturn += "public fun <T> ${name.replaceFirstChar { it.uppercase() }}$genericString.toList(): List<T> = listOf($valueString)"
 
         return toReturn
     }
