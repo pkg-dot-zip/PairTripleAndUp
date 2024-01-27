@@ -4,9 +4,9 @@ object Config {
     const val OUTPUT_FOLDER = "HorrorDir"
     const val FILE_NAME = "HorrorOutput"
     const val FILE_EXTENSION = ".kt"
-    const val GENERATE_DOC = false
-    const val GENERATE_TOSTRING = false
-    const val GENERATE_TOLIST = false
+    const val GENERATE_DOC = true
+    const val GENERATE_TOSTRING = true
+    const val GENERATE_TOLIST = true
     const val GENERATE_IMPORT = true
     const val IMPLEMENT_INTERFACE = true
 
@@ -45,8 +45,8 @@ object Config {
         Pair("quingentuple", 500),
         Pair("sescentuple", 600),
         Pair("septingentuple", 700),
-        Pair("octingentuple", 800),
-        Pair("nongentuple", 900),
-        Pair("milluple", 1000), // A lot
+//        Pair("octingentuple", 800),   // Here and up we get a java.lang.OutOfMemoryError for HorrorFull
+//        Pair("nongentuple", 900),     // Here and up we get a java.lang.OutOfMemoryError for HorrorSimple
+//        Pair("milluple", 1000),
     )
 }
