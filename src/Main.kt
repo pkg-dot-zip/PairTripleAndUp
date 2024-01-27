@@ -1,5 +1,6 @@
-import util.FileHandler
+import generation.ExtensionMethodGenerator
 import util.Config
+import util.FileHandler
 
 /**
  * THIS WAS CREATED AS A JOKE!!!
@@ -87,7 +88,7 @@ private fun generateDataClassString(name: String, valueAmount: Int): String {
     toReturn += ")\"\n}"
 
     // Outside the body, we create the toList() extension method.
-    toReturn += generateToListExtensionMethodString(name, valueAmount)
+    toReturn += ExtensionMethodGenerator.generateToListExtensionMethodString(name, valueAmount)
 
     return toReturn
 }
@@ -118,36 +119,6 @@ private fun generateDataClassDoc(name: String, valueAmount: Int): String {
             * @property value$i The $i value.
         """.trimIndent() + "\n*/\n"
     }
-
-    return toReturn
-}
-
-private fun generateToListExtensionMethodString(name: String, valueAmount: Int): String {
-    var toReturn = ""
-
-    val docBase = """ 
-        /**
-        * Converts this $name into a list.
-        */
-    """.trimIndent()
-
-    toReturn += "$docBase\n"
-
-    var genericString = "<"
-    for (i in 0..<valueAmount) {
-        genericString += "T, "
-    }
-    genericString = genericString.removeSuffix(", ")
-    genericString += ">"
-
-    var valueString = ""
-    for (i in 1..<valueAmount + 1) {
-        valueString += "value$i, "
-    }
-
-    valueString = valueString.removeSuffix(", ")
-
-    toReturn += "public fun <T> Triple$genericString.toList(): List<T> = listOf($valueString)"
 
     return toReturn
 }
